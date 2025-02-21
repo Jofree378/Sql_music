@@ -25,9 +25,16 @@ WHERE m.name NOT LIKE '% %';
 
 
 -- Название треков, которые содержат слово «мой» или «my»
-SELECT name
+SELECT s.name
 FROM songs s
-WHERE lower(s.name) LIKE '%my%' or lower(s.name) LIKE '%мой%';
+WHERE s.name ILIKE 'my %'
+OR s.name ILIKE '% my'
+OR s.name ILIKE '% my %'
+OR s.name ILIKE 'my'
+OR s.name ILIKE 'мой %'
+OR s.name ILIKE '% мой'
+OR s.name ILIKE '% мой %'
+OR s.name ILIKE 'мой';
 
 
 
@@ -54,11 +61,14 @@ GROUP BY a.name;
 
 
 -- Все исполнители, которые не выпустили альбомы в 2020 году
-SELECT DISTINCT m.name
-FROM musicians m 
-JOIN musicians_album ma ON m.musician_id = ma.musician_id
-JOIN albums a ON a.album_id = ma.album_id
-WHERE a.date_release != '2020';
+SELECT m.name
+FROM musicians m
+WHERE m.name NOT IN (SELECT m.name
+    FROM musicians m
+    JOIN musicians_album ma ON m.musician_id = ma.musician_id
+    JOIN albums a ON a.album_id = ma.album_id
+    WHERE a.date_release = '2020'
+);
 
 
 -- Названия сборников, в которых присутствует конкретный исполнитель (Kordhell)
@@ -74,15 +84,13 @@ WHERE m.name = 'Kordhell';
 
 -- Задание 4
 -- Названия альбомов, в которых присутствуют исполнители более чем одного жанра
-SELECT a1.name
-FROM (SELECT a.name, count(*) AS g_count
-	  FROM albums a 
-	  JOIN musicians_album ma ON a.album_id = ma.album_id
-	  JOIN musicians m ON ma.musician_id = m.musician_id
-	  JOIN musicians_genre mg ON mg.musician_id = m.musician_id
-	  JOIN genre g ON g.genre_id = mg.genre_id
-	  GROUP BY a.name) a1
-WHERE a1.g_count > 1;
+SELECT a.name
+FROM albums a
+JOIN musicians_album ma ON a.album_id = ma.album_id
+JOIN musicians m ON ma.musician_id = m.musician_id
+JOIN musicians_genre mg ON mg.musician_id = m.musician_id
+GROUP BY a.name, mg.musician_id
+HAVING COUNT(mg.genre_id) > 1;
 
 
 -- Наименования треков, которые не входят в сборники

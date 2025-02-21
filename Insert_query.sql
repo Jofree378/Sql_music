@@ -55,6 +55,9 @@ VALUES (6, 4);
 INSERT INTO musicians_genre (musician_id, genre_id)
 VALUES (7, 3);
 
+INSERT INTO musicians_genre (musician_id, genre_id)
+VALUES (6, 3);
+
 -- Заполнение таблицы Альбомы
 INSERT INTO Albums (name, date_release)
 VALUES ('WHEN WE ALL FALL ASLEEP, WHERE DO WE GO?', 2019);
@@ -76,6 +79,9 @@ VALUES ('Smack DVD', 2020);
 
 INSERT INTO Albums (name, date_release)
 VALUES ('Believer', 2019);
+
+INSERT INTO Albums (name, date_release)
+VALUES ('Test', 2020);
 
 -- Заполнение отношения Альбомы и Исполнители
 INSERT INTO musicians_album (musician_id, album_id)
@@ -101,6 +107,9 @@ VALUES (6, 7);
 
 INSERT INTO musicians_album (musician_id, album_id)
 VALUES (7, 7);
+
+INSERT INTO musicians_album (musician_id, album_id)
+VALUES (7, 8);
 
 -- Заполнение таблицы Песни
 INSERT INTO Songs (name, duration, album_id)
@@ -132,6 +141,25 @@ VALUES ('Smack DVD', 175, 6);
 
 INSERT INTO Songs (name, duration, album_id)
 VALUES ('Believer', 219, 7);
+
+INSERT INTO Songs (name, duration, album_id)
+VALUES ('myself', 200, 8);
+
+INSERT INTO Songs (name, duration, album_id)
+VALUES ('bemy self', 200, 8);
+
+INSERT INTO Songs (name, duration, album_id)
+VALUES ('myself by', 200, 8);
+
+INSERT INTO Songs (name, duration, album_id)
+VALUES ('beemy', 200, 8);
+
+INSERT INTO Songs (name, duration, album_id)
+VALUES ('by myself by', 200, 8);
+
+INSERT INTO Songs (name, duration, album_id)
+VALUES ('by myself', 200, 8);
+
 
 
 -- Заполнение таблицы Сборники
